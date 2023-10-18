@@ -4,6 +4,7 @@ import axios from 'axios'
 import './App.css'
 import SearchForm from './SearchForm'
 import Card from './Card'
+import SearchResults from './SearchResults'
 
 const API_KEY = 'AIzaSyBeJ3IhXXpm4pOFzxclMwqj0PS7n_ZSHdg'
 const API_URL = 'https://www.googleapis.com/books/v1/volumes'
@@ -14,27 +15,30 @@ function App () {
   const [sortingParam, setSortingParam] = useState('relevance')
   const [books, setBooks] = useState([])
   const [currentPage, setCurrentPage] = useState(1)
+  const [step, setStep] = useState(30)
+  const [startIndex, setStartIndex] = useState(0)
+  const [countBooks, setCountBooks] = useState(0)
 
   const getCategory = (category) => (category === 'all') ? '' : `+subject:${category}`
 
   const performSearch = (query, category, sortingParam) => { // ВЫДЕЛИТЬ В ОТДЕЛЬНЫЙ КОМПОНЕНТ ОТРИСОВКУ РЕЗУЛЬАТТОВ И КНОПКУ ПАГИНАЦИИ
-    // Параметры запроса
     const params = {
       q: `${query}${getCategory(category)}`,
       orderBy: sortingParam,
       key: API_KEY, // Ваш ключ API,
-      startIndex: 0,
-      maxResults: 30
+      startIndex,
+      maxResults: step
     }
     const searchParams = new URLSearchParams(params)
-    console.log(params, searchParams.toString())
+    console.log(searchParams.toString(), params)
+
     // Выполняем GET-запрос к Google Books API
     axios.get(API_URL, { params })
       .then(response => {
         const booksData = response.data.items // Полученные данные о книгах
-        // Обработка данных, например, обновление состояния books
-        setBooks(booksData)
-        console.log(response.data)
+        setCountBooks(response.data.totalItems)
+        setBooks([...books, ...booksData])
+        console.log(response.data.totalItems)
       })
       .catch(error => {
         console.error('Ошибка при выполнении запроса к Google Books API', error)
@@ -42,14 +46,13 @@ function App () {
       })
   }
 
-  // useEffect(() => {
-  //   // Выполнить загрузку книг при монтировании компонента
-  //   performSearch(searchQuery, selectedCategory, sortingParam)
-  // }, [searchQuery, selectedCategory, currentPage])
+  // useEffect(() => {}, [books])
 
-  // useEffect(() => {
-  //   console.log('BOOKSUPDATE', books)
-  // }, [books])
+  const loadMore = () => {
+    console.log('load more')
+    setStartIndex(startIndex + step)
+    performSearch()
+  }
 
   return (
     <div className="App">
@@ -59,14 +62,8 @@ function App () {
       <main className="App-main">
         <SearchForm onSearch={performSearch} /> {/* Передаем функцию поиска в SearchForm */}
         <div className="book-list">
-          {/* Компонент для отображения найденных книг в виде карточек */}
-          {/* Компонент кнопки "Load more" для пагинации */}
-          { books.length ? `Найдено: ${books.length} книг(а)` : null }
-          <div className="search-results">
-            {books.map((book) => (
-              <Card key={book.etag} book={book} />
-            ))}
-          </div>
+          { books.length ? `Найдено: ${countBooks} книг(а)` : null }
+          <SearchResults books={books} loadMore={loadMore} countBooks={countBooks} startIndex={startIndex} />
         </div>
       </main>
     </div>
