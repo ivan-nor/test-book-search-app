@@ -1,25 +1,57 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState, useEffect } from 'react'
+import axios from 'axios'
+import './App.css' // Подключаем стили вашего приложения
+import SearchForm from './SearchForm.jsx' // Импортируем компонент SearchForm
 
-function App() {
+const API_KEY = 'AIzaSyBeJ3IhXXpm4pOFzxclMwqj0PS7n_ZSHdg'
+const API_URL = 'https://www.googleapis.com/books/v1/volumes'
+
+const App = () => {
+  const [searchQuery, setSearchQuery] = useState('')
+  const [selectedCategory, setSelectedCategory] = useState('all')
+  const [books, setBooks] = useState([])
+  const [currentPage, setCurrentPage] = useState(1)
+
+  const performSearch = (query, category) => {
+    // Параметры запроса
+    const params = {
+      q: query, // Поисковый запрос
+      subject: category, // Категория (ваш выбор)
+      key: API_KEY // Ваш ключ API
+    }
+
+    // Выполняем GET-запрос к Google Books API
+    axios.get(API_URL, { params })
+      .then(response => {
+        const booksData = response.data.items // Полученные данные о книгах
+        // Обработка данных, например, обновление состояния books
+        console.log(booksData)
+      })
+      .catch(error => {
+        console.error('Ошибка при выполнении запроса к Google Books API', error)
+        // Обработка ошибки
+      })
+  }
+
+  useEffect(() => {
+    // Выполнить загрузку книг при монтировании компонента
+    performSearch(searchQuery, selectedCategory)
+  }, [searchQuery, selectedCategory, currentPage])
+
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        {/* Ваш заголовок или компоненты заголовка здесь */}
       </header>
+      <main className="App-main">
+        <SearchForm onSearch={performSearch} /> {/* Передаем функцию поиска в SearchForm */}
+        <div className="book-list">
+          {/* Компонент для отображения найденных книг в виде карточек */}
+          {/* Компонент кнопки "Load more" для пагинации */}
+        </div>
+      </main>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
