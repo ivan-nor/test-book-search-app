@@ -28,7 +28,7 @@ const SearchForm = ({ onSearch }) => {
         <option value="computers">computers</option>
         <option value="history">history</option>
         <option value="medical">medical</option>
-        <option value="all">poetry</option>
+        <option value="poetry">poetry</option>
         {/* Добавьте другие опции для категорий */}
       </select>
       <select
