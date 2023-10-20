@@ -1,8 +1,10 @@
-/* eslint-disable no-unused-vars */
-import { useState, useEffect, useMemo, useCallback } from 'react'
+/* eslint-disable no-console */
+import React, { useState, useEffect, useMemo, useCallback } from 'react'
 import axios from 'axios'
 import { useDispatch, useSelector } from 'react-redux'
 import { Button } from 'react-bootstrap'
+import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom'; // Импортируем необходимые компоненты из react-router-dom
+import BookPage from './BookPage'
 import { addBooks, updateStartIndex, clearBooks, setIsLoading } from './searchSlice'
 import { API_KEY, API_URL, MAX_RESULTS, PAGINATION_STEP } from './config'
 import './App.css'
@@ -76,10 +78,11 @@ function App () {
     performSearch(query, category, sortingParam, newStartIndex)
   }, [startIndex, PAGINATION_STEP, query, category, sortingParam])
 
-  const memoizedSearchResults = useMemo(() => (
-    <SearchResults books={books} countBooks={countBooks} startIndex={startIndex} />
-  ),
-  [books, countBooks, startIndex]
+  const memoizedSearchResults = useMemo(() => {
+    return (
+      <SearchResults books={books} countBooks={countBooks} startIndex={startIndex} isLoading={isLoading} />
+    )},
+    [books, countBooks, startIndex]
   )
 
   return (
@@ -88,18 +91,20 @@ function App () {
         <SearchForm onSearch={handleSearch} />
       </div>
       <div className="App-main">
-        <div className="book-list m-3">
-          {books.length ? `Найдено: ${countBooks} книг(а), отрисовано: ${books.length}` : null}
-
-          {memoizedSearchResults}
-
-          {!isLoading && (countBooks > startIndex + 30)
-            ? <Button onClick={memoizedLoadMoreBooks} disabled={isLoading}>Load more</Button>
-            : null
-          }
-
-          {isLoading && <LoadingSpinner />}
-        </div>
+        <Router>
+        <Switch>
+            <Route exact path="/">
+              <SearchResults
+                books={books}
+                countBooks={countBooks}
+                startIndex={startIndex}
+                isLoading={isLoading}
+                memoizedLoadMoreBooks={memoizedLoadMoreBooks}
+              />
+            </Route>
+            <Route path="/book/:id" component={BookPage} />
+          </Switch>
+        </Router>
       </div>
     </div>
   )

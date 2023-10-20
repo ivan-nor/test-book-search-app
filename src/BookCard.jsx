@@ -1,4 +1,7 @@
-import { Card } from 'react-bootstrap'
+/* eslint-disable no-unused-vars */
+import React from 'react';
+import { Card } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
 function BookCard ({ book }) {
   const {
@@ -8,7 +11,7 @@ function BookCard ({ book }) {
       categories = ['Unknown category'],
       imageLinks = { thumbnail: 'No image' }
     }
-  } = book
+  } = book;
 
   return (
     <Card style={{ width: '18rem' }} className="h-100">
@@ -19,6 +22,7 @@ function BookCard ({ book }) {
         <Card.Text>
           Authors: {authors.join(', ')}
         </Card.Text>
+        <Link to={`/book/${book.id}`}>Подробнее</Link>
       </Card.Body>
     </Card>
   )
