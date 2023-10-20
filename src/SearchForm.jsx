@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import { Form, Button, Col, Row, InputGroup } from 'react-bootstrap'
-import { useState } from 'react'
+import React, { useState } from 'react'
 
 function SearchForm ({ onSearch }) {
   const [query, setQuery] = useState('')
@@ -13,8 +13,8 @@ function SearchForm ({ onSearch }) {
   }
 
   return (
-    <Form onSubmit={handleSubmit} className="m-3">
-      <Row className="">
+    <Form onSubmit={handleSubmit} className="m-3 p-1">
+      <Row>
         <Col>
           <Form.Control
             type='text'
@@ -22,7 +22,7 @@ function SearchForm ({ onSearch }) {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
           />
-          <Form.Label>Input your query:</Form.Label>
+          <Form.Label className="m-0">Input your query:</Form.Label>
         </Col>
         <Col>
           <Form.Select
@@ -37,7 +37,7 @@ function SearchForm ({ onSearch }) {
             <option value="medical">medical</option>
             <option value="poetry">poetry</option>
           </Form.Select>
-          <Form.Label>Select category:</Form.Label>
+          <Form.Label className="m-0">Select category:</Form.Label>
         </Col>
         <Col>
           <Form.Select
@@ -48,7 +48,7 @@ function SearchForm ({ onSearch }) {
             <option value="newest">newest</option>
             {/* Добавьте другие параметры сортировки по вашему выбору */}
           </Form.Select>
-          <Form.Label>Sorting:</Form.Label>
+          <Form.Label className="m-0">Sorting:</Form.Label>
         </Col>
         <Col>
           <Button variant="primary" type="submit">
