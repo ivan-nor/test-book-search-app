@@ -1,23 +1,26 @@
 /* eslint-disable no-unused-vars */
-import { Form, Button, Col, Row, InputGroup } from 'react-bootstrap'
-import React, { useState } from 'react'
+import {
+  Form, Button, Col, Row,
+} from 'react-bootstrap';
+import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 
-function SearchForm ({ onSearch }) {
-  const [query, setQuery] = useState('')
-  const [category, setCategory] = useState('all')
-  const [sortingParam, setSortingParam] = useState('relevance')
+function SearchForm({ onSearch }) {
+  const [query, setQuery] = useState('');
+  const [category, setCategory] = useState('all');
+  const [sortingParam, setSortingParam] = useState('relevance');
 
   const handleSubmit = (e) => {
-    e.preventDefault()
-    onSearch(query, category, sortingParam)
-  }
+    e.preventDefault();
+    onSearch(query, category, sortingParam);
+  };
 
   return (
     <Form onSubmit={handleSubmit} className="m-3 p-1">
       <Row>
         <Col>
           <Form.Control
-            type='text'
+            type="text"
             placeholder="Search for books..."
             value={query}
             onChange={(e) => setQuery(e.target.value)}
@@ -43,7 +46,7 @@ function SearchForm ({ onSearch }) {
           <Form.Select
             value={sortingParam}
             onChange={(e) => setSortingParam(e.target.value)}
-            >
+          >
             <option value="relevance">relevance</option>
             <option value="newest">newest</option>
             {/* Добавьте другие параметры сортировки по вашему выбору */}
@@ -57,7 +60,11 @@ function SearchForm ({ onSearch }) {
         </Col>
       </Row>
     </Form>
-  )
+  );
 }
 
-export default SearchForm
+SearchForm.propTypes = {
+  onSearch: PropTypes.func.isRequired,
+};
+
+export default SearchForm;

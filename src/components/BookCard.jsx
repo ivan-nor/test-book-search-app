@@ -2,15 +2,17 @@
 import React from 'react';
 import { Card } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
-function BookCard ({ book }) {
+function BookCard({ book }) {
   const {
     volumeInfo: {
       title = 'No title',
       authors = ['Unknown author'],
       categories = ['Unknown category'],
-      imageLinks = { thumbnail: 'No image' }
-    }
+      imageLinks = { thumbnail: 'No image' },
+    },
+    id,
   } = book;
 
   return (
@@ -20,12 +22,32 @@ function BookCard ({ book }) {
         <Card.Title>{title}</Card.Title>
         <Card.Subtitle className="mb-2 text-muted">{categories[0]}</Card.Subtitle>
         <Card.Text>
-          Authors: {authors.join(', ')}
+          Authors:
+          {' '}
+          {authors.join(', ')}
         </Card.Text>
-        <Link to={`/book/${book.id}`}>Подробнее</Link>
+        <Link to={`/book/${id}`}>Подробнее</Link>
       </Card.Body>
     </Card>
-  )
+  );
 }
 
-export default BookCard
+BookCard.propTypes = {
+  book: PropTypes.shape({
+    volumeInfo: PropTypes.shape({
+      title: PropTypes.string,
+      authors: PropTypes.arrayOf(PropTypes.string),
+      categories: PropTypes.arrayOf(PropTypes.string),
+      imageLinks: PropTypes.shape({
+        thumbnail: PropTypes.string,
+      }),
+    }),
+    id: PropTypes.string,
+  }),
+};
+
+BookCard.defaultProps = {
+  book: null,
+};
+
+export default BookCard;

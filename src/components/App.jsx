@@ -1,23 +1,22 @@
 /* eslint-disable no-console */
+/* eslint-disable no-unused-vars */
 import React, {
   useState, useEffect, useMemo, useCallback,
 } from 'react';
-import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
-import { Button } from 'react-bootstrap';
 import {
-  BrowserRouter as Router, Route, Link, Switch,
-} from 'react-router-dom'; // Импортируем необходимые компоненты из react-router-dom
-import BookPage from './BookPage';
-import {
-  addBooks, updateStartIndex, clearBooks, setIsLoading,
-} from './searchSlice';
+  BrowserRouter as Router, Route, Switch,
+} from 'react-router-dom';
+import axios from 'axios';
 import {
   API_KEY, API_URL, MAX_RESULTS, PAGINATION_STEP,
-} from './config';
-import './App.css';
+} from '../config';
+import {
+  addBooks, updateStartIndex, clearBooks, setIsLoading,
+} from '../redux/searchSlice';
+import '../assets/styles/App.css';
+import BookPage from './BookPage';
 import SearchForm from './SearchForm';
-import LoadingSpinner from './LoadingSpinner';
 import SearchResults from './SearchResults';
 
 function App() {
@@ -31,16 +30,14 @@ function App() {
   const startIndex = useSelector((state) => state.search.startIndex);
   const isLoading = useSelector((state) => state.search.isLoading);
 
-  useEffect(() => console.log('UseEffect -> books:', books), [books]);
-
-  const performSearch = (query, category, sortingParam, startIndex) => {
+  const performSearch = (searchQuery, searchCategory, searchSortingParam) => {
     dispatch(setIsLoading(true));
 
-    const getCategory = (category) => ((category === 'all') ? '' : `+subject:${category}`);
+    const getCategory = (c) => ((c === 'all') ? '' : `+subject:${c}`);
 
     const params = {
-      q: `${query}${getCategory(category)}`,
-      orderBy: sortingParam,
+      q: `${searchQuery}${getCategory(searchCategory)}`,
+      orderBy: searchSortingParam,
       key: API_KEY,
       startIndex,
       maxResults: MAX_RESULTS,
@@ -86,12 +83,17 @@ function App() {
     performSearch(query, category, sortingParam, newStartIndex);
   }, [startIndex, PAGINATION_STEP, query, category, sortingParam]);
 
-  const memoizedSearchResults = useMemo(
-    () => (
-      <SearchResults books={books} countBooks={countBooks} startIndex={startIndex} isLoading={isLoading} />
-    ),
-    [books, countBooks, startIndex],
-  );
+  // const memoizedSearchResults = useMemo(
+  //   () => (
+  //     <SearchResults
+  //       books={books}
+  //       countBooks={countBooks}
+  //       startIndex={startIndex}
+  //       isLoading={isLoading}
+  //     />
+  //   ),
+  //   [books, countBooks, startIndex],
+  // );
 
   return (
     <div className="App">
