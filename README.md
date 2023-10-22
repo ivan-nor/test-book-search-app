@@ -1,70 +1,62 @@
-# Getting Started with Create React App
+# Google Books Search
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Проект test-book-search представляет собой веб-приложение, позволяющее выполнять поиск книг с использованием Google Books API и отображать результаты поиска в виде карточек. Пользователи могут также просматривать подробную информацию о выбранной книге и возвращаться к результатам поиска.
 
-## Available Scripts
+## Установка
 
-In the project directory, you can run:
+1. Клонируйте репозиторий с помощью следующей команды:
 
-### `npm start`
+    ```
+    git clone https://github.com/ivan-nor/test-book-search-app.git
+    ```
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+2. Перейдите в директорию проекта:
+   ```bash
+   cd test-book-search-app
+   ```
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+3. Установите зависимости с помощью npm:
 
-### `npm test`
+   ```bash
+   npm install
+   ```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Запуск
 
-### `npm run build`
+1. Для запуска проекта выполните следующую команду:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+   ```bash
+   npm start
+   ```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+2. После запуска, откройте веб-браузер и перейдите по адресу [http://localhost:3000](http://localhost:3000) для доступа к приложению.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Попробовать сейчас
 
-### `npm run eject`
+Перейдите по ссылке https://test-book-search-app.vercel.app/ 
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## Использование
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+1. На главной странице приложения вы можете ввести свой запрос, выбрать категорию и параметр сортировки, затем нажать кнопку "Искать", чтобы выполнить поиск.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+2. Результаты поиска будут отображены в виде карточек с информацией о каждой книге.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+3. Чтобы просмотреть подробную информацию о книге, нажмите на кнопку "Подробнее" на соответствующей карточке. Вы будете перенаправлены на страницу книги.
 
-## Learn More
+4. На странице с подробной информацией о книге, вы найдете информацию о названии, авторах, категориях, изображении обложки, описании и других данных.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+5. Для возврата к результатам поиска, нажмите кнопку "Назад к результатам поиска".
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Зависимости
 
-### Code Splitting
+Проект использует следующие библиотеки и инструменты:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+- [React](https://reactjs.org/) - библиотека для разработки пользовательского интерфейса
+- [React Router](https://reactrouter.com/) - для маршрутизации в приложении
+- [React Bootstrap](https://react-bootstrap.github.io/) - для создания стильных компонентов
+- [Redux](https://redux.js.org/) - для управления состоянием приложения
+- [Axios](https://axios-http.com/) - для выполнения HTTP-запросов к Google Books API
 
-### Analyzing the Bundle Size
+## Дополнительная информация
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Проект создан в рамках обучения и предоставляется как демонстрация навыков разработки веб-приложений с использованием React и связанных технологий.
