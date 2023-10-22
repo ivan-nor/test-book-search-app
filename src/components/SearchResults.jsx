@@ -15,7 +15,7 @@ function SearchResults({
 }) {
   return (
     <div className="book-list m-3">
-      {books.length ? `Найдено: ${countBooks} книг(а), отрисовано: ${books.length}` : null}
+      {books.length ? `Найдено: ${countBooks} книг(а)` : null}
       <Row className="h-100">
         { books.map((book) => (
           <Col key={book.etag} xs={12} sm={6} md={4} lg={3} className="p-3">
