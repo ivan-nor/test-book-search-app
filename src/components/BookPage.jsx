@@ -63,7 +63,7 @@ function BookPage({ match }) {
         {book.volumeInfo.publisher}
       </p>
 
-      <Link to="/">Back to Search Results</Link>
+      <Link to="/">Назад к результатам поиска</Link>
     </div>
   );
 }

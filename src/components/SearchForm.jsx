@@ -55,7 +55,7 @@ function SearchForm({ onSearch }) {
         </Col>
         <Col>
           <Button variant="primary" type="submit">
-            Search
+            Искать
           </Button>
         </Col>
       </Row>
