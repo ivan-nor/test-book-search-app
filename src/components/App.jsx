@@ -1,5 +1,5 @@
-/* eslint-disable no-console */
 /* eslint-disable no-unused-vars */
+/* eslint-disable no-console */
 import React, {
   useState, useEffect, useMemo, useCallback,
 } from 'react';
@@ -44,12 +44,9 @@ function App() {
       printType: 'books',
       filter: 'ebooks',
     };
-    const searchParams = new URLSearchParams(params);
-    console.log(searchParams.toString(), params);
 
     axios.get(API_URL, { params })
       .then((response) => {
-        console.log('RESPONSE DATA', response);
         const booksData = response.data.items;
         if (response.data.totalItems > 0) {
           setCountBooks(response.data.totalItems);
@@ -71,7 +68,6 @@ function App() {
     setCategory(newCategory);
     setSortingParam(newSortingParam);
     performSearch(newQuery, newCategory, newSortingParam, newStartIndex);
-    console.log('handle Search', newQuery, newCategory, newSortingParam, books);
     dispatch(updateStartIndex(newStartIndex));
     dispatch(clearBooks());
   };

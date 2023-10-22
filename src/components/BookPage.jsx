@@ -1,7 +1,6 @@
-/* eslint-disable no-unused-vars */
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 
 const bookPageStyle = {
@@ -17,7 +16,6 @@ function BookPage({ match }) {
   // Получите параметр `id` из URL
   const bookId = match.params.id;
 
-  const dispatch = useDispatch();
   const books = useSelector((state) => state.search.books);
   const book = books.find((b) => b.id === bookId);
 

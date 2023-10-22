@@ -1,5 +1,3 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable no-console */
 import React from 'react';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -15,7 +13,6 @@ function SearchResults({
   countBooks,
   memoizedLoadMoreBooks,
 }) {
-  console.log('render Search RESULT', books);
   return (
     <div className="book-list m-3">
       {books.length ? `Найдено: ${countBooks} книг(а), отрисовано: ${books.length}` : null}
